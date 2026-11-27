@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faisal Khan — Azure Cloud, DevOps &amp; Observability Engineer</title>
+<meta name="description" content="Faisal Khan — Azure Cloud Engineer with 4+ years across Azure infrastructure, Azure DevOps, AKS, Terraform, observability and Azure AI (OpenAI / AI Foundry) platform setup. AZ-305, AZ-104, AZ-900, ITIL 4.">
+<meta property="og:title" content="Faisal Khan — Azure Cloud, DevOps & Observability Engineer">
+<meta property="og:description" content="4+ years building, securing and operating production Azure platforms. Terraform, Azure DevOps, AKS, observability, Azure AI infrastructure.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#020306">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06070B; --panel:rgba(16,18,26,.78); --panel-solid:#0E1018;
+  --line:rgba(242,184,75,.18); --line-hot:rgba(226,54,54,.55);
+  --red:#E23636; --red-deep:#8E1616; --gold:#F2B84B; --gold-soft:rgba(242,184,75,.12);
+  --cyan:#5CE1FF; --cyan-soft:rgba(92,225,255,.12);
+  --text:#ECEEF3; --dim:#9AA1B3; --faint:#5F6678; --green:#4ADE80;
+  --disp:'Orbitron',sans-serif; --sans:'Rajdhani',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.55;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--red);color:#fff}
+canvas#fx{position:fixed;inset:0;z-index:0;pointer-events:none}
+.scan{position:fixed;inset:0;z-index:60;pointer-events:none;
+  background:repeating-linear-gradient(to bottom,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+.sweep{position:fixed;left:0;right:0;height:140px;z-index:59;pointer-events:none;top:-140px;
+  background:linear-gradient(to bottom,transparent,rgba(226,54,54,.05),transparent);animation:sweep 9s linear infinite}
+@keyframes sweep{to{top:100%}}
+.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,transparent 40%,rgba(0,0,0,.65))}
+.wrap{max-width:1140px;margin:0 auto;padding:0 26px;position:relative;z-index:2}
+section{padding:104px 0;position:relative}
+@media(max-width:720px){section{padding:68px 0}}
+
+/* boot */
+#boot{position:fixed;inset:0;z-index:100;background:#040508;display:flex;align-items:center;justify-content:center;transition:opacity .7s ease,visibility .7s}
+#boot.done{opacity:0;visibility:hidden}
+.boot-box{width:min(560px,88vw);font-family:var(--mono);font-size:13px;color:var(--gold)}
+.boot-box .ring{width:92px;height:92px;margin:0 auto 26px;position:relative}
+.boot-box .ring i{position:absolute;inset:0;border-radius:50%;border:2px solid transparent;border-top-color:var(--red);animation:spin 1.1s linear infinite}
+.boot-box .ring i:nth-child(2){inset:10px;border-top-color:var(--gold);animation-duration:1.7s;animation-direction:reverse}
+.boot-box .ring i:nth-child(3){inset:22px;border-top-color:var(--cyan);animation-duration:2.3s}
+.boot-lines{min-height:112px;line-height:1.9}
+.boot-lines .ok{color:var(--green)}
+.boot-bar{height:3px;background:#1a1d27;margin-top:14px;overflow:hidden}
+.boot-bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold));transition:width .15s linear}
+.boot-skip{margin-top:16px;color:var(--faint);font-size:11px;text-align:center;letter-spacing:.1em}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* nav */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(6,7,11,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1140px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-family:var(--disp);font-weight:700;font-size:14px;letter-spacing:.14em;display:flex;align-items:center;gap:10px}
+.brand .pip{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.links{display:flex;gap:26px;font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.links a{transition:.2s;padding:4px 0;border-bottom:2px solid transparent}
+.links a:hover,.links a.on{color:var(--gold);border-color:var(--gold)}
+.cta{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.14em;padding:10px 18px;color:#fff;background:linear-gradient(135deg,var(--red),var(--red-deep));border:1px solid var(--red);transition:.25s;box-shadow:0 0 0 rgba(226,54,54,0)}
+.cta:hover{box-shadow:0 0 22px rgba(226,54,54,.6);transform:translateY(-1px)}
+@media(max-width:900px){.links{display:none}}
+
+/* hud primitives */
+.hud{position:relative;background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(6px)}
+.hud::before,.hud::after{content:'';position:absolute;width:16px;height:16px;pointer-events:none;transition:.3s}
+.hud::before{top:-1px;left:-1px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
+.hud::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--red);border-right:2px solid var(--red)}
+.hud:hover{border-color:rgba(242,184,75,.38)}
+.hud:hover::before,.hud:hover::after{width:26px;height:26px}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;color:var(--red);text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.eyebrow::after{content:'';height:1px;width:64px;background:linear-gradient(90deg,var(--red),transparent)}
+h2.title{font-family:var(--disp);font-weight:900;font-size:clamp(26px,4vw,42px);letter-spacing:.02em;line-height:1.1;text-transform:uppercase}
+h2.title em{font-style:normal;color:var(--gold)}
+.sub{color:var(--dim);max-width:640px;margin:14px 0 46px;font-size:19px}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);padding:3px 9px;display:inline-block}
+.tag.hot{color:var(--gold);border-color:var(--line);background:var(--gold-soft)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* hero */
+.hero{padding:70px 0 90px;min-height:calc(100vh - 60px);display:flex;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;width:100%}
+@media(max-width:920px){.hero-grid{grid-template-columns:1fr}.core-wrap{order:-1;max-width:340px;margin:0 auto}}
+.status{display:inline-flex;gap:10px;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--green);border:1px solid rgba(74,222,128,.35);background:rgba(74,222,128,.07);padding:7px 14px;margin-bottom:26px}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
+.hero h1{font-family:var(--disp);font-weight:900;font-size:clamp(40px,7vw,80px);line-height:1;letter-spacing:.01em;text-transform:uppercase;
+  background:linear-gradient(180deg,#fff 10%,#c9ccd6 55%,var(--gold) 120%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 22px rgba(226,54,54,.25))}
+.role{margin-top:18px;font-family:var(--mono);font-size:clamp(14px,2vw,18px);color:var(--gold);min-height:28px;border-left:3px solid var(--red);padding-left:14px}
+.role .caret{display:inline-block;width:9px;height:1.05em;background:var(--gold);margin-left:3px;vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lede{margin-top:22px;max-width:600px;color:var(--dim);font-size:20px}
+.lede b{color:var(--text);font-weight:600}
+.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.btn{font-family:var(--disp);font-size:12px;font-weight:700;letter-spacing:.14em;padding:14px 24px;border:1px solid var(--line-hot);color:var(--text);transition:.25s;display:inline-flex;gap:8px;align-items:center;text-transform:uppercase}
+.btn.p{background:linear-gradient(135deg,var(--red),var(--red-deep));color:#fff}
+.btn:hover{box-shadow:0 0 24px rgba(226,54,54,.5);transform:translateY(-2px)}
+.btn.g{border-color:var(--line);color:var(--gold)}
+.btn.g:hover{box-shadow:0 0 22px rgba(242,184,75,.3)}
+
+.core-wrap{position:relative;aspect-ratio:1;width:100%;perspective:900px}
+.core{width:100%;height:100%;transition:transform .15s ease-out;transform-style:preserve-3d}
+.core svg{width:100%;height:100%;overflow:visible}
+.spin{transform-box:fill-box;transform-origin:center}
+.s1{animation:spin 38s linear infinite}.s2{animation:spin 24s linear infinite reverse}.s3{animation:spin 16s linear infinite}.s4{animation:spin 60s linear infinite reverse}
+.core-glow{animation:glow 3.2s ease-in-out infinite}
+@keyframes glow{50%{opacity:.55}}
+.chip{position:absolute;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--cyan);border:1px solid rgba(92,225,255,.35);background:rgba(6,12,18,.8);padding:4px 9px;animation:float 5s ease-in-out infinite}
+.chip.a{top:4%;left:2%}.chip.b{top:12%;right:-2%;animation-delay:-1.2s}.chip.c{bottom:20%;left:-4%;animation-delay:-2.2s}.chip.d{bottom:6%;right:4%;animation-delay:-3s}.chip.e{top:46%;right:-8%;animation-delay:-.6s}
+@keyframes float{50%{transform:translateY(-9px)}}
+
+.metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:56px}
+@media(max-width:920px){.metrics{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.metrics{grid-template-columns:repeat(2,1fr)}}
+.m{padding:16px 14px}
+.m .n{font-family:var(--disp);font-weight:700;font-size:26px;color:var(--gold);text-shadow:0 0 16px rgba(242,184,75,.35)}
+.m .l{font-size:13.5px;color:var(--dim);margin-top:2px;line-height:1.25;text-transform:uppercase;letter-spacing:.05em}
+
+/* missions */
+.mission{display:grid;grid-template-columns:270px 1fr;gap:22px}
+@media(max-width:860px){.mission{grid-template-columns:1fr}}
+.tabs{display:flex;flex-direction:column;gap:8px}
+@media(max-width:860px){.tabs{flex-direction:row;overflow-x:auto;padding-bottom:6px}.tabs button{white-space:nowrap}}
+.tabs button{font-family:var(--sans);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-align:left;color:var(--dim);background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);padding:13px 16px;cursor:pointer;transition:.2s;display:flex;gap:12px;align-items:center}
+.tabs button .ix{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.tabs button:hover{color:var(--text);border-color:var(--line)}
+.tabs button[aria-selected="true"]{color:#fff;background:linear-gradient(90deg,rgba(226,54,54,.25),rgba(226,54,54,.04));border-color:var(--line-hot);box-shadow:inset 3px 0 0 var(--red)}
+.tabs button[aria-selected="true"] .ix{color:var(--gold)}
+.mpanel{padding:32px 30px;min-height:430px}
+.mpanel h3{font-family:var(--disp);font-size:clamp(19px,2.4vw,26px);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.mpanel .one{color:var(--dim);margin:10px 0 22px;font-size:19px;max-width:640px}
+.mpanel ul{list-style:none;display:grid;gap:11px;margin-bottom:24px}
+.mpanel li{padding-left:22px;position:relative;font-size:17.5px;color:#cfd3de}
+.mpanel li::before{content:'▸';position:absolute;left:0;color:var(--red)}
+.mproof{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.proof{border:1px solid var(--line);background:var(--gold-soft);padding:8px 14px;font-family:var(--mono);font-size:12.5px;color:var(--gold)}
+.mstack{display:flex;gap:7px;flex-wrap:wrap}
+.fade{animation:fadeIn .45s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* arsenal */
+.arsenal{display:grid;grid-template-columns:420px 1fr;gap:26px;align-items:start}
+@media(max-width:940px){.arsenal{grid-template-columns:1fr}}
+.radar-box{padding:24px 18px;text-align:center}
+.radar-box svg{width:100%;height:auto}
+.radar-note{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.08em}
+.groups{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.groups{grid-template-columns:1fr}}
+.grp{padding:18px 18px 20px}
+.grp h4{font-family:var(--disp);font-size:12px;letter-spacing:.16em;color:var(--gold);margin-bottom:12px;text-transform:uppercase;display:flex;justify-content:space-between;gap:8px}
+.grp h4 span{color:var(--faint);font-family:var(--mono);font-weight:400;letter-spacing:.05em}
+.grp .tags{display:flex;flex-wrap:wrap;gap:6px}
+
+/* pipeline flow */
+.flow{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;position:relative;margin-top:6px}
+@media(max-width:940px){.flow{grid-template-columns:1fr}}
+.flow::before{content:'';position:absolute;top:34px;left:6%;right:6%;height:2px;background:linear-gradient(90deg,transparent,var(--line-hot),transparent)}
+.flow::after{content:'';position:absolute;top:31px;left:6%;width:60px;height:8px;border-radius:8px;background:radial-gradient(var(--gold),transparent 70%);animation:travel 5s linear infinite;filter:blur(1px)}
+@keyframes travel{from{left:6%}to{left:calc(94% - 60px)}}
+@media(max-width:940px){.flow::before,.flow::after{display:none}}
+.node{padding:14px 10px 16px;text-align:center;position:relative;z-index:2}
+.node .o{width:40px;height:40px;margin:0 auto 10px;border-radius:50%;border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--gold);background:var(--panel-solid);box-shadow:0 0 14px rgba(226,54,54,.4)}
+.node b{display:block;font-family:var(--disp);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.node span{display:block;font-size:14px;color:var(--dim);margin-top:5px;line-height:1.3}
+
+/* timeline */
+.tl{display:grid;gap:22px}
+.job{padding:28px 28px 26px;display:grid;grid-template-columns:18px 1fr;gap:20px}
+.job .rail{width:2px;background:linear-gradient(var(--red),transparent);margin:6px auto 0;position:relative}
+.job .rail::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;background:var(--red);box-shadow:0 0 14px var(--red)}
+.job.past .rail::before{background:var(--gold);box-shadow:0 0 14px var(--gold)}
+.jhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.jhead h3{font-family:var(--disp);font-size:clamp(16px,2vw,21px);letter-spacing:.04em;text-transform:uppercase}
+.jdate{font-family:var(--mono);font-size:12px;color:var(--gold);border:1px solid var(--line);padding:4px 10px}
+.jorg{color:var(--red);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:15px;margin:4px 0 14px}
+.job ul{list-style:none;display:grid;gap:9px}
+.job li{padding-left:20px;position:relative;color:#cfd3de;font-size:17px}
+.job li::before{content:'›';position:absolute;left:0;color:var(--gold);font-weight:700}
+.job li b{color:#fff;font-weight:600}
+.job .tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}
+
+/* projects */
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:980px){.pg{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.pg{grid-template-columns:1fr}}
+.pc{padding:24px 22px;display:flex;flex-direction:column;gap:12px}
+.pc .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pc .id{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.1em}
+.pc .imp{font-family:var(--mono);font-size:11.5px;color:var(--green);border:1px solid rgba(74,222,128,.35);background:rgba(74,222,128,.07);padding:3px 9px;white-space:nowrap}
+.pc h3{font-family:var(--disp);font-size:14.5px;letter-spacing:.06em;text-transform:uppercase;line-height:1.3}
+.pc p{color:var(--dim);font-size:16.5px;flex-grow:1}
+.pc .tags{display:flex;gap:6px;flex-wrap:wrap}
+
+/* certs */
+.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:980px){.cg{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.cg{grid-template-columns:1fr}}
+.cert{padding:26px 18px;text-align:center}
+.cert .b{font-family:var(--disp);font-weight:900;font-size:22px;color:var(--gold);text-shadow:0 0 18px rgba(242,184,75,.4);letter-spacing:.06em}
+.cert .t{font-size:17px;font-weight:600;margin-top:8px;line-height:1.25}
+.cert .i{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:8px}
+.edu{padding:26px 28px;display:flex;gap:22px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.edu .yr{font-family:var(--disp);font-size:20px;color:var(--red);font-weight:700}
+
+/* contact */
+.contact{text-align:center}
+.contact h2{margin:0 auto}
+.contact .sub{margin-left:auto;margin-right:auto}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;max-width:1000px;margin:0 auto}
+.cc{padding:20px 18px;display:flex;gap:14px;align-items:center;text-align:left;transition:.25s}
+.cc:hover{transform:translateY(-3px);box-shadow:0 0 26px rgba(226,54,54,.25)}
+.cc .ic{width:40px;height:40px;border:1px solid var(--line-hot);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0}
+.cc small{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint)}
+.cc span{font-weight:600;font-size:17px;word-break:break-all}
+footer{border-top:1px solid var(--line);text-align:center;padding:28px 16px;font-family:var(--mono);font-size:12px;color:var(--faint);position:relative;z-index:2;letter-spacing:.06em}
+
+/* reticle */
+#ret{position:fixed;width:34px;height:34px;border:1.5px solid var(--red);border-radius:50%;pointer-events:none;z-index:90;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s,background .2s;display:none;mix-blend-mode:screen}
+#ret::after{content:'';position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px;background:var(--gold);border-radius:50%}
+#ret.big{width:56px;height:56px;border-color:var(--gold);background:rgba(242,184,75,.06)}
+@media(pointer:fine){#ret{display:block}}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}.sweep{display:none}
+}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ===== v2 ARMOR UPGRADE: true-black, metallic red/gold, holographic panels ===== */
+:root{
+  --bg:#020306; --panel:rgba(10,12,20,.7); --panel-solid:#06080D;
+  --red:#FF2B2B; --red-hot:#FF4D3D; --red-deep:#A00A12;
+  --gold:#FFC93C; --gold-hi:#FFF1B0; --gold-deep:#B07A12;
+  --cyan:#6CF0FF; --green:#4DFF8A;
+  --line:rgba(255,201,60,.32); --line-hot:rgba(255,43,43,.75); --gold-soft:rgba(255,201,60,.14);
+  --text:#F4F6FB; --dim:#B3BACB; --faint:#6E768B;
+  --metal-gold:linear-gradient(180deg,#FFF6C8 0%,#FFD34D 36%,#E3A51B 54%,#FFE48A 74%,#B8790F 100%);
+  --metal-red:linear-gradient(180deg,#FFB9AE 0%,#FF4A3A 30%,#D3121B 56%,#FF5A47 76%,#7D0610 100%);
+}
+body{background-color:#020306;background-image:radial-gradient(ellipse 90% 55% at 50% -8%,rgba(255,43,43,.2),transparent 62%),radial-gradient(ellipse 60% 40% at 90% 100%,rgba(255,201,60,.07),transparent 60%);background-attachment:fixed}
+.vignette{background:radial-gradient(ellipse at 50% 35%,transparent 32%,rgba(0,0,0,.82))}
+.sweep{background:linear-gradient(to bottom,transparent,rgba(255,43,43,.08),transparent)}
+header.nav{background:rgba(2,3,6,.88);border-bottom:1px solid rgba(255,43,43,.45);box-shadow:0 6px 30px rgba(255,43,43,.12)}
+.brand .pip{background:var(--red);box-shadow:0 0 16px 2px var(--red)}
+.links a:hover,.links a.on{color:var(--gold-hi);border-color:var(--gold);text-shadow:0 0 12px rgba(255,201,60,.7)}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:120;background:linear-gradient(90deg,var(--red),var(--gold),var(--gold-hi));box-shadow:0 0 14px var(--red),0 0 24px rgba(255,201,60,.6)}
+
+/* holographic panels */
+.hud{
+  background:
+    linear-gradient(115deg,transparent 35%,rgba(108,240,255,.13) 50%,transparent 65%) 200% 0/250% 100% no-repeat,
+    repeating-linear-gradient(0deg,rgba(108,240,255,.04) 0 1px,transparent 1px 4px),
+    linear-gradient(145deg,rgba(12,22,38,.84),rgba(6,8,15,.9) 58%,rgba(46,6,10,.75));
+  border:1px solid rgba(108,240,255,.26);
+  box-shadow:inset 0 0 44px rgba(108,240,255,.06),0 0 30px rgba(255,43,43,.09),0 14px 44px rgba(0,0,0,.6);
+  transition:opacity .7s ease,transform .7s ease,background-position 1s ease,border-color .3s,box-shadow .3s;
+}
+.hud:hover{background-position:-70% 0,0 0,0 0;border-color:rgba(255,201,60,.65);box-shadow:inset 0 0 50px rgba(108,240,255,.09),0 0 38px rgba(255,201,60,.25),0 14px 44px rgba(0,0,0,.6)}
+.hud::before{filter:drop-shadow(0 0 5px var(--gold))}
+.hud::after{filter:drop-shadow(0 0 5px var(--red))}
+
+/* typography */
+.eyebrow{color:var(--red-hot);text-shadow:0 0 12px rgba(255,43,43,.7)}
+h2.title{font-size:clamp(30px,5vw,58px);line-height:1.05;background:var(--metal-gold);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(255,180,30,.35)) drop-shadow(0 3px 0 rgba(100,55,0,.55))}
+h2.title em{background:var(--metal-red);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(255,43,43,.65))}
+.hero h1{display:flex;flex-direction:column;font-size:clamp(46px,7.6vw,104px);line-height:.94;letter-spacing:.02em;background:none;filter:none;color:inherit}
+.hero h1 span{display:block;position:relative;-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 .g1{background-image:var(--metal-gold);filter:drop-shadow(0 0 28px rgba(255,190,40,.5)) drop-shadow(0 5px 0 rgba(110,60,0,.7))}
+.hero h1 .g2{background-image:var(--metal-red);filter:drop-shadow(0 0 32px rgba(255,43,43,.8)) drop-shadow(0 5px 0 rgba(70,0,0,.8))}
+.hero h1 span::after{content:attr(data-t);position:absolute;inset:0;background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.95) 50%,transparent 60%) 150% 0/250% 100% no-repeat;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s ease-in-out infinite}
+.hero h1 .g2::after{animation-delay:.4s}
+@keyframes shine{0%{background-position:150% 0}55%,100%{background-position:-60% 0}}
+.role{color:var(--gold-hi);text-shadow:0 0 14px rgba(255,201,60,.55);border-left-color:var(--red);box-shadow:-6px 0 14px -6px var(--red)}
+.status{color:var(--green);border-color:rgba(77,255,138,.5);background:rgba(77,255,138,.08);box-shadow:0 0 18px rgba(77,255,138,.18)}
+.status i{box-shadow:0 0 10px var(--green)}
+
+/* buttons */
+.btn.p,.cta{background:linear-gradient(180deg,#FF6A58 0%,#D3121B 48%,#8E0912 52%,#C21018 100%);border:1px solid #FF8A7A;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 20px rgba(255,43,43,.5)}
+.btn.p:hover,.cta:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 0 40px rgba(255,43,43,.9)}
+.btn.g{background:linear-gradient(180deg,rgba(255,225,130,.18),rgba(255,201,60,.04));border-color:rgba(255,201,60,.75);color:var(--gold-hi);box-shadow:inset 0 0 16px rgba(255,201,60,.14)}
+.btn.g:hover{box-shadow:inset 0 0 16px rgba(255,201,60,.2),0 0 30px rgba(255,201,60,.45)}
+
+/* arc reactor */
+.core-wrap{margin-bottom:36px}
+.core{filter:drop-shadow(0 0 30px rgba(108,240,255,.6)) drop-shadow(0 0 80px rgba(255,43,43,.3))}
+.rglow{animation:glow 2.4s ease-in-out infinite}
+.pr{position:absolute;inset:16%;border-radius:50%;border:2px solid rgba(108,240,255,.6);animation:ping 3.6s ease-out infinite;pointer-events:none;box-shadow:0 0 18px rgba(108,240,255,.35)}
+@keyframes ping{from{transform:scale(.55);opacity:.85}to{transform:scale(1.4);opacity:0}}
+.core-cap{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);white-space:nowrap;font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:var(--cyan);text-shadow:0 0 12px rgba(108,240,255,.8)}
+.chip{color:#B8F8FF;border-color:rgba(108,240,255,.6);background:rgba(2,10,16,.85);box-shadow:0 0 14px rgba(108,240,255,.25);text-shadow:0 0 8px rgba(108,240,255,.7)}
+
+/* brief console */
+.brief{margin-top:26px;max-width:580px;padding:14px 18px 16px;font-family:var(--mono);font-size:13px;line-height:1.9;color:var(--cyan)}
+.brief .hd{display:flex;justify-content:space-between;color:var(--faint);font-size:10.5px;letter-spacing:.16em;margin-bottom:6px;border-bottom:1px solid rgba(108,240,255,.15);padding-bottom:6px}
+.brief .k{color:var(--gold)}.brief .v{color:#fff}
+
+/* metrics / numbers */
+.m .n{font-size:30px;background:var(--metal-gold);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 12px rgba(255,190,40,.55))}
+.achieve-num{color:var(--gold)}
+.cert .b{background:var(--metal-gold);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 14px rgba(255,190,40,.55));font-size:26px}
+
+/* ticker */
+.ticker{width:100vw;margin-left:calc(50% - 50vw);overflow:hidden;border-top:1px solid var(--line-hot);border-bottom:1px solid var(--line-hot);background:linear-gradient(90deg,rgba(130,8,16,.55),rgba(2,3,6,.75) 50%,rgba(130,8,16,.55));padding:16px 0;box-shadow:0 0 34px rgba(255,43,43,.22),inset 0 0 30px rgba(255,43,43,.12)}
+.ticker .tr{display:flex;align-items:center;width:max-content;animation:tick 42s linear infinite}
+.ticker span{font-family:var(--disp);font-weight:900;font-size:clamp(22px,3.4vw,40px);letter-spacing:.12em;padding:0 22px;white-space:nowrap;text-transform:uppercase;background:var(--metal-gold);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 10px rgba(255,190,40,.45))}
+.ticker span:nth-of-type(even){background-image:var(--metal-red);filter:drop-shadow(0 0 12px rgba(255,43,43,.7))}
+.ticker i{font-style:normal;color:var(--cyan);text-shadow:0 0 12px var(--cyan);font-size:14px}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* section dividers, tabs, tags, misc glow */
+section + section::before{content:'';position:absolute;top:0;left:26px;right:26px;height:1px;background:linear-gradient(90deg,transparent,var(--red),var(--gold),var(--red),transparent);box-shadow:0 0 16px rgba(255,43,43,.7);opacity:.7}
+.tabs button{background:rgba(8,12,20,.7);border-color:rgba(108,240,255,.18)}
+.tabs button[aria-selected="true"]{background:linear-gradient(90deg,rgba(255,43,43,.4),rgba(255,43,43,.05));border-color:var(--line-hot);box-shadow:inset 3px 0 0 var(--red),0 0 22px rgba(255,43,43,.3);text-shadow:0 0 10px rgba(255,255,255,.4)}
+.tag{border-color:rgba(108,240,255,.18);background:rgba(108,240,255,.05)}
+.tag.hot{color:var(--gold-hi);border-color:rgba(255,201,60,.55);background:rgba(255,201,60,.1);text-shadow:0 0 8px rgba(255,201,60,.45)}
+.proof,.jdate{color:var(--gold-hi);border-color:rgba(255,201,60,.55);background:rgba(255,201,60,.1);text-shadow:0 0 8px rgba(255,201,60,.4)}
+.pc .imp{color:var(--green);border-color:rgba(77,255,138,.55);background:rgba(77,255,138,.09);text-shadow:0 0 8px rgba(77,255,138,.5)}
+.node .o{border-color:var(--red-hot);color:var(--gold-hi);box-shadow:0 0 22px rgba(255,43,43,.65),inset 0 0 10px rgba(255,43,43,.3)}
+.flow::after{background:radial-gradient(var(--gold-hi),var(--gold) 30%,transparent 70%)}
+.jorg{color:var(--red-hot);text-shadow:0 0 10px rgba(255,43,43,.5)}
+.grp h4{color:var(--gold-hi);text-shadow:0 0 10px rgba(255,201,60,.45)}
+.mpanel li::before,.job li::before{text-shadow:0 0 8px currentColor}
+#radar #rpoly{filter:drop-shadow(0 0 8px rgba(255,43,43,.9))}
+.cc .ic{border-color:var(--line-hot);color:var(--red-hot);box-shadow:0 0 14px rgba(255,43,43,.35)}
+#ret{border-color:var(--red-hot);box-shadow:0 0 14px rgba(255,43,43,.7),inset 0 0 8px rgba(255,43,43,.4)}
+footer{border-top:1px solid var(--line-hot);box-shadow:0 -6px 30px rgba(255,43,43,.12)}
+@media(max-width:520px){
+  .brand{font-size:11px;letter-spacing:.06em;white-space:nowrap}
+  .nav-in{padding:12px 16px;gap:10px}
+  .cta{padding:9px 12px;white-space:nowrap}
+  .chip{font-size:10px;padding:3px 7px}
+  .chip.b{right:0}.chip.c{left:0}.chip.e{right:0}
+  .brief{font-size:11.5px}
+}
+</style>
+</head>
+<body>
+
+<div id="boot" role="status" aria-live="polite">
+  <div class="boot-box">
+    <div class="ring"><i></i><i></i><i></i></div>
+    <div class="boot-lines" id="bootLines"></div>
+    <div class="boot-bar"><b id="bootBar"></b></div>
+    <div class="boot-skip">PRESS ANY KEY OR CLICK TO SKIP</div>
+  </div>
+</div>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="vignette"></div>
+<div class="scan"></div>
+<div class="sweep"></div>
+<div id="ret" aria-hidden="true"></div>
+<div id="prog" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="nav-in">
+    <div class="brand"><span class="pip"></span>FAISAL.KHAN // CLOUD-OS</div>
+    <nav class="links" aria-label="Primary">
+      <a href="#top">Core</a><a href="#missions">Missions</a><a href="#arsenal">Arsenal</a><a href="#pipeline">Pipeline</a><a href="#experience">Log</a><a href="#projects">Builds</a><a href="#certs">Certs</a>
+    </nav>
+    <a class="cta" href="mailto:faisalakhan007@gmail.com">HIRE ME</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div style="width:100%">
+    <div class="hero-grid">
+      <div>
+        <div class="status"><i></i>STATUS: ONLINE · OPEN TO OPPORTUNITIES</div>
+        <h1><span class="g1" data-t="Faisal">Faisal</span><span class="g2" data-t="Khan">Khan</span></h1>
+        <div class="role"><span id="roleText"></span><span class="caret"></span></div>
+        <p class="lede"><b>4+ years</b> designing, automating and running production-grade Azure platforms — Terraform-built infrastructure, zero-downtime AKS delivery, full-stack observability and secure foundations for Azure AI workloads. Microsoft-certified (<b>AZ-305 · AZ-104 · AZ-900</b>) and ITIL 4.</p>
+        <div class="hud brief" aria-hidden="true">
+          <div class="hd"><span>SYSTEM BRIEF // CLOUD-OS</span><span id="clock">--:--:--</span></div>
+          <div><span class="k">&gt; role</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="v">Azure Cloud · DevOps · Observability · AI Infra</span></div>
+          <div><span class="k">&gt; uptime</span>&nbsp;&nbsp;<span class="v">99.9%+ across production</span></div>
+          <div><span class="k">&gt; certs</span>&nbsp;&nbsp;&nbsp;<span class="v">AZ-305 · AZ-104 · AZ-900 · ITIL 4</span></div>
+          <div><span class="k">&gt; status</span>&nbsp;&nbsp;<span class="v" style="color:var(--green)">READY TO DEPLOY</span></div>
+        </div>
+        <div class="actions">
+          <a class="btn p" href="#missions">Explore Missions ▸</a>
+          <a class="btn g" href="https://www.linkedin.com/in/faisal-asif-khan" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="btn g" href="https://github.com/fak-han" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="core-wrap" aria-hidden="true">
+        <div class="pr"></div><div class="pr" style="animation-delay:1.2s"></div><div class="pr" style="animation-delay:2.4s"></div>
+        <div class="core" id="core">
+          <svg viewBox="0 0 400 400">
+            <defs>
+              <radialGradient id="rcore" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#fff"/>
+                <stop offset=".28" stop-color="#EAFEFF"/>
+                <stop offset=".6" stop-color="#6CF0FF" stop-opacity=".9"/>
+                <stop offset="1" stop-color="#1AA7D9" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="rmetal" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFF6C8"/><stop offset=".42" stop-color="#FFC93C"/>
+                <stop offset=".56" stop-color="#8A5A0A"/><stop offset="1" stop-color="#FFE08A"/>
+              </linearGradient>
+              <linearGradient id="rred" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FF6A58"/><stop offset=".5" stop-color="#D3121B"/><stop offset="1" stop-color="#5E050B"/>
+              </linearGradient>
+              <filter id="rb1" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
+              <filter id="rb2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.5"/></filter>
+            </defs>
+            <circle cx="200" cy="200" r="198" fill="none" stroke="#FF2B2B" stroke-opacity=".5" stroke-width="1"/>
+            <circle class="spin s4" cx="200" cy="200" r="190" fill="none" stroke="#FFC93C" stroke-opacity=".7" stroke-width="1.5" stroke-dasharray="3 10"/>
+            <circle cx="200" cy="200" r="178" fill="#03050A" stroke="url(#rmetal)" stroke-width="7"/>
+            <circle cx="200" cy="200" r="164" fill="none" stroke="url(#rred)" stroke-width="12"/>
+            <circle cx="200" cy="200" r="156" fill="none" stroke="#FF8A7A" stroke-opacity=".55" stroke-width="1"/>
+            <circle class="spin s1" cx="200" cy="200" r="153" fill="none" stroke="#FFC93C" stroke-width="3" stroke-dasharray="2 9"/>
+            <g id="coils" class="spin s2"></g>
+            <circle cx="200" cy="200" r="104" fill="#04060B" stroke="url(#rmetal)" stroke-width="5"/>
+            <circle class="rglow" cx="200" cy="200" r="95" fill="none" stroke="#6CF0FF" stroke-width="3"/>
+            <circle class="spin s3" cx="200" cy="200" r="84" fill="none" stroke="#9FF6FF" stroke-width="2" stroke-dasharray="34 14"/>
+            <circle class="core-glow" cx="200" cy="200" r="78" fill="url(#rcore)" filter="url(#rb1)"/>
+            <polygon points="200,134 258,234 142,234" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round" filter="url(#rb2)"/>
+            <polygon points="200,134 258,234 142,234" fill="rgba(108,240,255,.12)" stroke="#CFFBFF" stroke-width="1.5" stroke-linejoin="round"/>
+            <circle cx="200" cy="200" r="40" fill="url(#rcore)"/>
+            <circle class="core-glow" cx="200" cy="200" r="26" fill="#fff" filter="url(#rb2)"/>
+            <circle cx="200" cy="200" r="17" fill="#fff"/>
+          </svg>
+        </div>
+        <span class="chip a">AZURE</span><span class="chip b">TERRAFORM</span><span class="chip c">AKS</span><span class="chip d">OBSERVABILITY</span><span class="chip e">AI&nbsp;INFRA</span><div class="core-cap">◉ ARC CORE ONLINE · 4+ YRS</div>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <div class="hud m reveal"><div class="n" data-n="99.9" data-d="1" data-s="%">0</div><div class="l">Platform uptime</div></div>
+      <div class="hud m reveal"><div class="n" data-n="30" data-p="↓" data-s="%">0</div><div class="l">Deploy lead time</div></div>
+      <div class="hud m reveal"><div class="n" data-n="25" data-p="↓" data-s="%">0</div><div class="l">MTTR improvement</div></div>
+      <div class="hud m reveal"><div class="n" data-n="20" data-p="↓" data-s="%">0</div><div class="l">Cloud spend (up to)</div></div>
+      <div class="hud m reveal"><div class="n" data-n="100" data-s="+">0</div><div class="l">Incidents / month</div></div>
+      <div class="hud m reveal"><div class="n" data-n="50" data-s="+">0</div><div class="l">App teams onboarded</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="tr" id="tk"></div></div>
+
+<!-- MISSIONS -->
+<section id="missions">
+  <div class="eyebrow">// 01 mission profiles</div>
+  <h2 class="title">One engineer. <em>Seven</em> mission profiles.</h2>
+  <p class="sub">Pick the profile that matches your role — each one is backed by hands-on delivery, not keyword stuffing.</p>
+  <div class="mission reveal">
+    <div class="tabs" role="tablist" aria-label="Mission profiles" id="tabs"></div>
+    <div class="hud mpanel" id="mpanel" role="tabpanel" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ARSENAL -->
+<section id="arsenal">
+  <div class="eyebrow">// 02 tech arsenal</div>
+  <h2 class="title">Systems <em>diagnostics</em></h2>
+  <p class="sub">Depth across the Azure stack. Fundamentals and basic exposure are labelled honestly.</p>
+  <div class="arsenal">
+    <div class="hud radar-box reveal">
+      <svg id="radar" viewBox="0 0 340 340" role="img" aria-label="Skill depth radar chart"></svg>
+      <div class="radar-note">SELF-ASSESSED DEPTH · PRODUCTION EXPERIENCE</div>
+    </div>
+    <div class="groups" id="groups"></div>
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section id="pipeline">
+  <div class="eyebrow">// 03 delivery pipeline</div>
+  <h2 class="title">Commit to <em>observed</em> in production</h2>
+  <p class="sub">The path every change takes on platforms I run — automated, gated, secured and watched.</p>
+  <div class="flow">
+    <div class="hud node reveal"><div class="o">01</div><b>Commit</b><span>Git · branching · PR checks</span></div>
+    <div class="hud node reveal"><div class="o">02</div><b>Build &amp; Scan</b><span>Azure DevOps / GitHub Actions · SonarQube · SAST/DAST</span></div>
+    <div class="hud node reveal"><div class="o">03</div><b>Plan</b><span>Terraform / ARM · remote state in Azure Storage</span></div>
+    <div class="hud node reveal"><div class="o">04</div><b>Gate</b><span>Approvals · Azure Policy · RBAC / PIM</span></div>
+    <div class="hud node reveal"><div class="o">05</div><b>Deploy</b><span>AKS · App Service · Functions · multi-stage Dev→Prod</span></div>
+    <div class="hud node reveal"><div class="o">06</div><b>Observe</b><span>Azure Monitor · Log Analytics · Grafana · KQL</span></div>
+    <div class="hud node reveal"><div class="o">07</div><b>Respond</b><span>Alerts · runbooks · L3 escalation · post-incident review</span></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="eyebrow">// 04 mission log</div>
+  <h2 class="title">Career <em>deployment</em> history</h2>
+  <p class="sub">HCLTech, Hyderabad — two roles, one steady climb from operations into platform engineering.</p>
+  <div class="tl">
+    <div class="hud job reveal">
+      <div class="rail"></div>
+      <div>
+        <div class="jhead"><h3>Azure Cloud Engineer</h3><span class="jdate">FEB 2024 — PRESENT</span></div>
+        <div class="jorg">HCLTech · Hyderabad, India</div>
+        <ul>
+          <li>Designed highly available Azure platforms on <b>AKS</b> — YAML deployments, scaling and cluster upgrades — holding <b>99.9%+ uptime</b> across dev, staging and production.</li>
+          <li>Built multi-stage <b>CI/CD</b> in Azure DevOps and GitHub Actions (reusable YAML templates, approval gates, self-hosted agent pools), cutting deployment lead time <b>30%</b> with zero-downtime releases.</li>
+          <li>Wrote reusable <b>Terraform / ARM</b> modules and pipelines that deploy Azure resources, reducing manual provisioning effort <b>40%</b>.</li>
+          <li>Designed and built <b>Azure Landing Zones</b> with Private Endpoints, Private DNS and policy guardrails; onboarded <b>50+ application teams</b>.</li>
+          <li>Provisioned <b>Azure OpenAI / AI Foundry / AI Services</b> infrastructure with Terraform — private networking, managed identities, Key Vault and RBAC.</li>
+          <li>Stood up centralized <b>observability</b> (Azure Monitor, Log Analytics, Grafana) with proactive alerting, improving MTTR by <b>25%</b>.</li>
+          <li>Enforced DevSecOps governance with Entra ID, RBAC, PIM and Azure Policy across production; embedded SAST/DAST in pipelines.</li>
+          <li>Cut cloud spend <b>15–20% quarterly</b> through right-sizing, auto-shutdown and cost reviews.</li>
+          <li>L3 escalation owner — <b>100+ incidents a month</b>, working directly with Microsoft Azure Support on critical cases.</li>
+        </ul>
+        <div class="tags"><span class="tag hot">AKS</span><span class="tag hot">Terraform</span><span class="tag hot">Azure DevOps</span><span class="tag hot">Azure OpenAI</span><span class="tag hot">Grafana</span><span class="tag">Landing Zones</span><span class="tag">RBAC/PIM</span><span class="tag">FinOps</span></div>
+      </div>
+    </div>
+
+    <div class="hud job past reveal">
+      <div class="rail"></div>
+      <div>
+        <div class="jhead"><h3>Azure Cloud Analyst</h3><span class="jdate">SEP 2022 — JAN 2024</span></div>
+        <div class="jorg">HCLTech · Hyderabad, India</div>
+        <ul>
+          <li>Automated provisioning with Terraform, Ansible and Bash, cutting environment setup time <b>50%</b>.</li>
+          <li>Designed Azure networking (VNets, NSGs, Load Balancers, App Gateway) supporting <b>10,000+ users</b> with zero network-related outages.</li>
+          <li>Rolled out <b>Key Vault</b> across 10+ environments, removing hardcoded credentials and cutting vulnerabilities <b>35%</b>.</li>
+          <li>Applied Entra ID, Defender for Cloud and RBAC controls, lifting CIS benchmark compliance <b>40%</b>; kept <b>98%+ patch compliance</b> on 100+ servers.</li>
+          <li>Ran ITIL incident and change management in ServiceNow at <b>95%+ SLA adherence</b> on high-severity incidents.</li>
+          <li>Tuned Azure Monitor alerts and runbooks to improve MTTD <b>30%</b>; automated health checks and cost reports, saving 5+ hours weekly.</li>
+        </ul>
+        <div class="tags"><span class="tag hot">Terraform</span><span class="tag hot">Ansible</span><span class="tag">Key Vault</span><span class="tag">Defender for Cloud</span><span class="tag">ServiceNow</span><span class="tag">ITIL</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="eyebrow">// 05 build files</div>
+  <h2 class="title">Declassified <em>builds</em></h2>
+  <p class="sub">Initiatives I owned end to end, with the measured result attached.</p>
+  <div class="pg">
+    <div class="hud pc reveal"><div class="top"><span class="id">BUILD-001</span><span class="imp">↓ 40% effort</span></div><h3>Reusable IaC Module Library</h3><p>Standardised Terraform and ARM modules for consistent provisioning across dev, staging and production.</p><div class="tags"><span class="tag">Terraform</span><span class="tag">ARM</span><span class="tag">Azure DevOps</span></div></div>
+    <div class="hud pc reveal"><div class="top"><span class="id">BUILD-002</span><span class="imp">↓ 25% MTTR</span></div><h3>Centralised Observability Platform</h3><p>Azure Monitor, Log Analytics and Grafana dashboards with alert standards, runbooks and log correlation for AKS workloads.</p><div class="tags"><span class="tag">Azure Monitor</span><span class="tag">Grafana</span><span class="tag">KQL</span></div></div>
+    <div class="hud pc reveal"><div class="top"><span class="id">BUILD-003</span><span class="imp">30% faster</span></div><h3>Multi-Stage Delivery Pipelines</h3><p>Dev→Test→UAT→Prod pipelines with reusable templates, approval gates, self-hosted agents and automated test and scan stages.</p><div class="tags"><span class="tag">Azure DevOps</span><span class="tag">GitHub Actions</span><span class="tag">SonarQube</span></div></div>
+    <div class="hud pc reveal"><div class="top"><span class="id">BUILD-004</span><span class="imp">50+ teams</span></div><h3>Azure Landing Zone &amp; Private Networking</h3><p>Governed landing zones with hub networking, Private Endpoints, Private DNS, UDR routing and policy guardrails for app-team onboarding.</p><div class="tags"><span class="tag">Landing Zones</span><span class="tag">Private Link</span><span class="tag">Azure Policy</span></div></div>
+    <div class="hud pc reveal"><div class="top"><span class="id">BUILD-005</span><span class="imp">AI-ready</span></div><h3>Azure AI Platform Infrastructure</h3><p>Terraform-provisioned Azure OpenAI / AI Services footprint — private access, managed identities, Key Vault secrets and RBAC — with AI Foundry and Azure ML hands-on.</p><div class="tags"><span class="tag">Azure OpenAI</span><span class="tag">AI Foundry</span><span class="tag">Terraform</span></div></div>
+    <div class="hud pc reveal"><div class="top"><span class="id">BUILD-006</span><span class="imp">↓ 35% vulns</span></div><h3>Centralised Secrets Management</h3><p>Key Vault and managed identities rolled out across 10+ environments, eliminating hardcoded credentials.</p><div class="tags"><span class="tag">Key Vault</span><span class="tag">Managed Identity</span><span class="tag">DevSecOps</span></div></div>
+    <div class="hud pc reveal"><div class="top"><span class="id">BUILD-007</span><span class="imp">↓ 50% setup</span></div><h3>Provisioning Automation Suite</h3><p>End-to-end environment setup with Terraform, Ansible and Bash, replacing repetitive manual configuration.</p><div class="tags"><span class="tag">Ansible</span><span class="tag">Bash</span><span class="tag">PowerShell</span></div></div>
+    <div class="hud pc reveal"><div class="top"><span class="id">BUILD-008</span><span class="imp">15–20% saved</span></div><h3>FinOps &amp; Cost Governance</h3><p>Right-sizing, auto-shutdown, reservations and Cost Management / Advisor reviews delivering quarterly savings.</p><div class="tags"><span class="tag">Cost Management</span><span class="tag">Advisor</span><span class="tag">Automation</span></div></div>
+    <div class="hud pc reveal"><div class="top"><span class="id">BUILD-009</span><span class="imp">+40% CIS</span></div><h3>Security Baseline &amp; Governance</h3><p>Entra ID, Conditional Access, PIM, Defender for Cloud and Sentinel alerting aligned to CIS benchmarks.</p><div class="tags"><span class="tag">Defender</span><span class="tag">Sentinel</span><span class="tag">PIM</span></div></div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="eyebrow">// 06 credentials</div>
+  <h2 class="title">Certified <em>clearance</em></h2>
+  <p class="sub">Credentials backing the hands-on experience above.</p>
+  <div class="cg">
+    <div class="hud cert reveal"><div class="b">AZ-305</div><div class="t">Azure Solutions Architect Expert</div><div class="i">MICROSOFT</div></div>
+    <div class="hud cert reveal"><div class="b">AZ-104</div><div class="t">Azure Administrator Associate</div><div class="i">MICROSOFT</div></div>
+    <div class="hud cert reveal"><div class="b">AZ-900</div><div class="t">Azure Fundamentals</div><div class="i">MICROSOFT</div></div>
+    <div class="hud cert reveal"><div class="b">ITIL 4</div><div class="t">ITIL 4 Foundation</div><div class="i">SERVICE MANAGEMENT</div></div>
+  </div>
+  <div class="hud edu reveal">
+    <div class="yr">2018 — 2023</div>
+    <div><div style="font-family:var(--disp);font-size:15px;letter-spacing:.05em;text-transform:uppercase">Bachelor of Engineering (Mechanical)</div>
+    <div style="color:var(--dim)">Baba Saheb Naik College of Engineering, Pusad · SGB Amravati University, Maharashtra, India</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="eyebrow" style="justify-content:center">// 07 open channel</div>
+  <h2 class="title">Let's build something <em>reliable</em></h2>
+  <p class="sub">Open to Azure Cloud, DevOps, Cloud Infrastructure and Observability roles — India, Gulf and Europe. Reach out directly; I reply fast.</p>
+  <div class="cgrid">
+    <a class="hud cc reveal" href="mailto:faisalakhan007@gmail.com"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></div><div><small>EMAIL</small><span>faisalakhan007@gmail.com</span></div></a>
+    <a class="hud cc reveal" href="tel:+919067760567"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><small>PHONE</small><span>+91-9067760567</span></div></a>
+    <a class="hud cc reveal" href="https://wa.me/919067760567" target="_blank" rel="noopener"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 20l1.07-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></div><div><small>WHATSAPP</small><span>+91-9067760567</span></div></a>
+    <a class="hud cc reveal" href="https://www.linkedin.com/in/faisal-asif-khan" target="_blank" rel="noopener"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13a4 4 0 0 1 8 0v8"/></svg></div><div><small>LINKEDIN</small><span>/in/faisal-asif-khan</span></div></a>
+    <a class="hud cc reveal" href="https://github.com/fak-han" target="_blank" rel="noopener"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div><small>GITHUB</small><span>github.com/fak-han</span></div></a>
+  </div>
+</section>
+
+</main>
+
+<footer>faisal@cloud-os:~$ deploy --status success · Hyderabad, India · Updated Nov 2026</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- boot sequence ---------- */
+  var boot = document.getElementById('boot');
+  var lines = [
+    'INITIALISING PORTFOLIO CORE ........ <span class="ok">OK</span>',
+    'LOADING AZURE MODULES .............. <span class="ok">OK</span>',
+    'MOUNTING TERRAFORM STATE ........... <span class="ok">OK</span>',
+    'CONNECTING OBSERVABILITY STACK ..... <span class="ok">OK</span>',
+    'SYNCING AI PLATFORM INFRA .......... <span class="ok">OK</span>',
+    'ALL SYSTEMS NOMINAL — WELCOME'
+  ];
+  var bl = document.getElementById('bootLines'), bb = document.getElementById('bootBar');
+  var finished = false;
+  function finish(){
+    if(finished) return; finished = true;
+    boot.classList.add('done');
+    try{ sessionStorage.setItem('fk_boot','1'); }catch(e){}
+    startCounters();
+  }
+  var seen = false;
+  try{ seen = sessionStorage.getItem('fk_boot') === '1'; }catch(e){}
+  if(reduce || seen){ boot.style.display='none'; finished = true; }
+  else{
+    var i = 0;
+    var t = setInterval(function(){
+      if(finished){ clearInterval(t); return; }
+      if(i < lines.length){
+        bl.insertAdjacentHTML('beforeend', '<div>'+lines[i]+'</div>');
+        bb.style.width = Math.round(((i+1)/lines.length)*100)+'%';
+        i++;
+      } else { clearInterval(t); setTimeout(finish, 350); }
+    }, 330);
+    boot.addEventListener('click', finish);
+    window.addEventListener('keydown', finish, {once:true});
+  }
+
+  /* ---------- role typer ---------- */
+  var roles = ['Azure Cloud Engineer','Azure DevOps Engineer','Cloud Infrastructure & Observability','Azure AI Platform Infra (OpenAI / AI Foundry)'];
+  var rt = document.getElementById('roleText');
+  if(reduce){ rt.textContent = roles[0]; }
+  else{
+    var ri = 0, ci = 0, del = false;
+    (function tick(){
+      var cur = roles[ri];
+      rt.textContent = cur.slice(0, ci);
+      if(!del && ci < cur.length){ ci++; setTimeout(tick, 55); }
+      else if(!del){ del = true; setTimeout(tick, 1500); }
+      else if(ci > 0){ ci--; setTimeout(tick, 28); }
+      else { del = false; ri = (ri+1) % roles.length; setTimeout(tick, 250); }
+    })();
+  }
+
+  /* ---------- counters ---------- */
+  var counted = false;
+  function startCounters(){
+    if(counted) return; counted = true;
+    document.querySelectorAll('[data-n]').forEach(function(el){
+      var target = parseFloat(el.dataset.n), d = parseInt(el.dataset.d||'0',10);
+      var p = el.dataset.p||'', s = el.dataset.s||'';
+      if(reduce){ el.textContent = p + target.toFixed(d) + s; return; }
+      var start = null, dur = 1600;
+      function step(ts){
+        if(start === null) start = ts;
+        var k = Math.min((ts-start)/dur, 1), e = 1 - Math.pow(1-k, 3);
+        el.textContent = p + (target*e).toFixed(d) + s;
+        if(k < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  if(finished) startCounters();
+
+  /* ---------- missions ---------- */
+  var M = [
+    {k:'Azure Cloud',t:'Azure Cloud Engineer',one:'Build, secure and run production Azure — from networking and identity to compute, storage and PaaS.',
+     pts:['VMs, VMSS, VNets, NSGs, Load Balancer, Application Gateway, VPN Gateway and ExpressRoute designed for 10,000+ users with zero network-related outages.',
+          'PaaS delivery on App Service, Functions, Logic Apps and Azure SQL behind Private Endpoints and managed identities.',
+          'Backup and DR with Azure Backup and Site Recovery; patching and hardening at 98%+ compliance on 100+ servers.',
+          'Hybrid and end-user estate: Windows Server, Linux, AD, VMware/Hyper-V, Azure Virtual Desktop and Citrix Cloud support.'],
+     proof:['99.9%+ uptime','10,000+ users','98%+ patch compliance'],
+     stack:['Azure','VNet','App Gateway','ExpressRoute','App Service','Functions','Azure SQL','ASR','AVD']},
+    {k:'Azure DevOps',t:'Azure DevOps Engineer',one:'Multi-stage, secure, repeatable delivery — pipelines, templates, gates and agents that teams trust.',
+     pts:['Multi-stage Dev/Test/UAT/Prod YAML pipelines with reusable templates, approval gates and environment checks.',
+          'Self-hosted agent pools, Azure Repos, Boards and Artifacts; L3 monitoring of pipeline and platform failures.',
+          'GitHub Actions workflows; SonarQube plus SAST/DAST scanning and automated test stages built into CI/CD.',
+          'Pipelines that deploy Azure resources through Terraform with remote state and controlled promotion.',
+          'CI/CD cost optimisation and release management with zero-downtime releases.'],
+     proof:['↓30% lead time','Zero-downtime releases','Reusable templates'],
+     stack:['Azure DevOps','YAML','GitHub Actions','Git','SonarQube','Terraform','Artifacts','Boards']},
+    {k:'Azure AI',t:'Azure OpenAI & AI Platform Infra',one:'The secure cloud foundation under AI workloads — networking, identity, secrets and governance done right.',
+     pts:['Provisioned Azure OpenAI, AI Foundry and AI Services infrastructure through Terraform.',
+          'Private networking for AI services with Private Endpoints and Private DNS; keyless access with managed identities.',
+          'Secrets and keys in Key Vault; RBAC and Azure Policy guardrails; monitoring through Azure Monitor and Log Analytics.',
+          'Hands-on with Azure Machine Learning and AI Foundry; Azure Data Factory pipelines and Databricks connectivity support.',
+          'Uses GitHub Copilot and LLM tools to speed up scripting and troubleshooting — and validates every output.'],
+     proof:['Terraform-built','Private-by-default','Managed identity auth'],
+     stack:['Azure OpenAI','AI Foundry','AI Services','Azure ML','ADF','Databricks','Key Vault','Private Link']},
+    {k:'Observability',t:'Cloud Observability Engineer',one:'See everything, alert on what matters, shorten the time from signal to fix.',
+     pts:['Centralised telemetry with Azure Monitor, Log Analytics and Application Insights; KQL queries, workbooks and alert rules with action groups.',
+          'Grafana dashboards and alerting for AKS and platform services; hands-on with Prometheus, ELK and Datadog.',
+          'End-to-end correlation across metrics, logs and alerts; alerting standards, runbooks and post-incident reviews.',
+          'LogicMonitor and ServiceNow integrations feeding 24x7 operations and ITIL incident flow.'],
+     proof:['↓25% MTTR','↓30% MTTD','100+ incidents / month'],
+     stack:['Azure Monitor','Log Analytics','App Insights','KQL','Grafana','Prometheus','ELK','Datadog']},
+    {k:'Cloud Infra',t:'Cloud Infrastructure & Landing Zones',one:'Governed, repeatable foundations — so every new team starts on rails.',
+     pts:['Azure Landing Zones aligned to Cloud Adoption Framework: management groups, subscriptions, policy and RBAC.',
+          'Reusable Terraform and ARM modules; Ansible, PowerShell and Bash automation for provisioning and operations.',
+          'Hub-and-spoke networking with Virtual WAN, peering, UDR, Private DNS and WAF in front of web apps.',
+          'AKS at working depth: manifests, scaling, cluster autoscaler, upgrades. Docker and Kubernetes fundamentals.',
+          'FinOps with Cost Management and Advisor, right-sizing and auto-shutdown.'],
+     proof:['↓40% provisioning effort','↓50% setup time','15–20% cost saved'],
+     stack:['Terraform','ARM','Ansible','Landing Zones','AKS','Virtual WAN','Private DNS','WAF']},
+    {k:'Security',t:'Security & Governance',one:'Identity-first security and policy-as-guardrail, built in rather than bolted on.',
+     pts:['Entra ID, RBAC, PIM, Conditional Access and MFA; access reviews and Enterprise / App Registrations.',
+          'Azure Policy, Defender for Cloud and Microsoft Sentinel; CIS benchmark remediation.',
+          'Key Vault across 10+ environments to remove hardcoded credentials.',
+          'DevSecOps: SAST/DAST in pipelines, endpoint protection and system hardening.'],
+     proof:['+40% CIS compliance','↓35% vulnerabilities','10+ vaulted envs'],
+     stack:['Entra ID','PIM','Conditional Access','Defender','Sentinel','Key Vault','Azure Policy']},
+    {k:'Cloud Ops',t:'Cloud Operations (L2 / L3)',one:'Calm under pressure — ITIL discipline with the engineering depth to actually fix things.',
+     pts:['L2/L3 ownership of 100+ incidents a month, major-incident bridges and vendor / customer communication.',
+          'ITIL 4 incident, change and problem management in ServiceNow at 95%+ SLA on high-severity incidents.',
+          'Direct escalation path with Microsoft Azure Support for critical cases.',
+          'Runbooks, SOPs and knowledge articles; Automation Runbooks and PowerShell for health checks and reporting.',
+          'Comfortable with 24x7 rotational shifts and international teams.'],
+     proof:['95%+ SLA','ITIL 4','24x7 ready'],
+     stack:['ITIL 4','ServiceNow','Runbooks','PowerShell','Azure Support','Incident Mgmt']}
+  ];
+  var tabs = document.getElementById('tabs'), panel = document.getElementById('mpanel');
+  function tagList(a,hot){ return a.map(function(x){ return '<span class="tag'+(hot?' hot':'')+'">'+x+'</span>'; }).join(''); }
+  function show(i){
+    var m = M[i];
+    Array.prototype.forEach.call(tabs.children, function(b,j){ b.setAttribute('aria-selected', j===i ? 'true':'false'); b.tabIndex = j===i?0:-1; });
+    panel.innerHTML = '<div class="fade"><h3>'+m.t+'</h3><p class="one">'+m.one+'</p><ul>'+m.pts.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul><div class="mproof">'+m.proof.map(function(p){return '<span class="proof">'+p+'</span>';}).join('')+'</div><div class="mstack">'+tagList(m.stack,true)+'</div></div>';
+  }
+  M.forEach(function(m,i){
+    var b = document.createElement('button');
+    b.type='button'; b.setAttribute('role','tab');
+    b.innerHTML = '<span class="ix">0'+(i+1)+'</span>'+m.k;
+    b.addEventListener('click', function(){ show(i); });
+    b.addEventListener('keydown', function(e){
+      var n = null;
+      if(e.key==='ArrowDown'||e.key==='ArrowRight') n=(i+1)%M.length;
+      if(e.key==='ArrowUp'||e.key==='ArrowLeft') n=(i-1+M.length)%M.length;
+      if(n!==null){ e.preventDefault(); show(n); tabs.children[n].focus(); }
+    });
+    tabs.appendChild(b);
+  });
+  show(0);
+
+  /* ---------- radar ---------- */
+  var R = [['Azure Platform',95],['IaC',92],['CI/CD',93],['AKS',80],['Observability',88],['Security',87],['AI Infra',76]];
+  var rs = document.getElementById('radar'), cx=170, cy=170, rad=108, N=R.length, svg='';
+  function pt(i,v){ var a=-Math.PI/2+i*2*Math.PI/N; return [cx+Math.cos(a)*rad*v/100, cy+Math.sin(a)*rad*v/100]; }
+  [25,50,75,100].forEach(function(l){
+    svg += '<polygon points="'+R.map(function(_,i){return pt(i,l).join(',');}).join(' ')+'" fill="none" stroke="rgba(255,201,60,'+(l===100?.7:.25)+')" stroke-width="1"/>';
+  });
+  R.forEach(function(r,i){
+    var p = pt(i,100), q = pt(i,122), anchor = q[0] < cx-8 ? 'end' : (q[0] > cx+8 ? 'start' : 'middle');
+    svg += '<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0]+'" y2="'+p[1]+'" stroke="rgba(242,184,75,.16)"/>';
+    svg += '<text x="'+q[0]+'" y="'+(q[1]+4)+'" text-anchor="'+anchor+'" font-family="Rajdhani,sans-serif" font-weight="600" font-size="13" fill="#C9CEDA" letter-spacing=".5">'+r[0]+' · '+r[1]+'</text>';
+  });
+  svg += '<polygon id="rpoly" points="'+R.map(function(_,i){return pt(i,0).join(',');}).join(' ')+'" fill="rgba(255,43,43,.32)" stroke="#FF3B30" stroke-width="2.5" stroke-linejoin="round"/>';
+  R.forEach(function(r,i){ var p=pt(i,r[1]); svg += '<circle class="rdot" cx="'+cx+'" cy="'+cy+'" r="3.5" fill="#FFE08A" data-x="'+p[0]+'" data-y="'+p[1]+'"/>'; });
+  rs.innerHTML = svg;
+  var radarDone = false;
+  function drawRadar(){
+    if(radarDone) return; radarDone = true;
+    var poly = document.getElementById('rpoly'), dots = rs.querySelectorAll('.rdot');
+    var t0 = null, dur = reduce ? 1 : 1300;
+    function f(ts){
+      if(t0===null) t0 = ts;
+      var k = Math.min((ts-t0)/dur,1), e = 1-Math.pow(1-k,3);
+      poly.setAttribute('points', R.map(function(r,i){return pt(i,r[1]*e).join(',');}).join(' '));
+      dots.forEach(function(d,i){ var p = pt(i,R[i][1]*e); d.setAttribute('cx',p[0]); d.setAttribute('cy',p[1]); });
+      if(k<1) requestAnimationFrame(f);
+    }
+    requestAnimationFrame(f);
+  }
+
+  /* ---------- arsenal groups ---------- */
+  var G = [
+    ['Azure Core','Expert',['VMs & VMSS','VNet / NSG / UDR','App Gateway','Load Balancer','ExpressRoute','VPN Gateway','Virtual WAN','Storage','App Service','Functions','Logic Apps','Azure SQL','Backup & ASR','AVD']],
+    ['IaC & CI/CD','Expert',['Terraform','ARM Templates','Azure DevOps','YAML Pipelines','GitHub Actions','Git','Ansible','SonarQube','SAST / DAST','Azure Artifacts','Automation Runbooks']],
+    ['Containers','Hands-on',['AKS','Kubernetes manifests','Cluster autoscaler','ACR','Docker (fundamentals)','Cluster upgrades']],
+    ['Observability','Advanced',['Azure Monitor','Log Analytics','App Insights','KQL','Grafana','Prometheus','ELK','Datadog','LogicMonitor','Alerting & runbooks']],
+    ['Security & Identity','Advanced',['Entra ID','RBAC','PIM','Conditional Access','Azure Policy','Defender for Cloud','Sentinel','Key Vault','Managed Identity','Private Link']],
+    ['AI & Data','Working',['Azure OpenAI','AI Foundry','AI Services','Azure ML','Data Factory','Databricks (support)']],
+    ['Integration','Working',['API Management','Service Bus','Event-driven','JSON / XML mapping','Cloud-to-on-prem']],
+    ['Ops & Scripting','Advanced',['PowerShell','Azure CLI','Bash','Python (basic)','ServiceNow','ITIL 4','FinOps','Windows Server','Linux','AWS (basic)']]
+  ];
+  document.getElementById('groups').innerHTML = G.map(function(g){
+    return '<div class="hud grp reveal"><h4>'+g[0]+'<span>'+g[1]+'</span></h4><div class="tags">'+g[2].map(function(x){return '<span class="tag">'+x+'</span>';}).join('')+'</div></div>';
+  }).join('');
+
+  /* ---------- reveal & nav highlight ---------- */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in'); io.unobserve(e.target);
+        if(e.target.classList.contains('radar-box')) drawRadar();
+      }
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  var navLinks = document.querySelectorAll('.links a');
+  var secs = ['top','missions','arsenal','pipeline','experience','projects','certs'].map(function(id){return document.getElementById(id);});
+  var so = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        navLinks.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#'+e.target.id); });
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(function(s){ if(s) so.observe(s); });
+
+  /* ---------- core tilt + reticle ---------- */
+  var core = document.getElementById('core'), ret = document.getElementById('ret');
+  if(window.matchMedia('(pointer:fine)').matches && !reduce){
+    window.addEventListener('mousemove', function(e){
+      ret.style.left = e.clientX+'px'; ret.style.top = e.clientY+'px';
+      var x = (e.clientX/window.innerWidth - .5), y = (e.clientY/window.innerHeight - .5);
+      core.style.transform = 'rotateY('+(x*18)+'deg) rotateX('+(-y*18)+'deg)';
+    });
+    document.querySelectorAll('a,button').forEach(function(el){
+      el.addEventListener('mouseenter', function(){ ret.classList.add('big'); });
+      el.addEventListener('mouseleave', function(){ ret.classList.remove('big'); });
+    });
+  }
+
+  /* ---------- reactor coils, progress, ticker, clock ---------- */
+  (function(){
+    var g = document.getElementById('coils');
+    if(g){
+      var o = '';
+      var P = function(r,a){ var t = a*Math.PI/180; return (200+r*Math.cos(t)).toFixed(1)+','+(200+r*Math.sin(t)).toFixed(1); };
+      for(var k=0;k<10;k++){
+        var a = k*36-90;
+        o += '<polygon points="'+[P(112,a-15),P(112,a+15),P(148,a+12),P(148,a-12)].join(' ')+'" fill="#070B12" stroke="url(#rmetal)" stroke-width="2.5"/>';
+        o += '<polygon class="rglow" points="'+[P(120,a-9),P(120,a+9),P(140,a+7),P(140,a-7)].join(' ')+'" fill="#6CF0FF" fill-opacity=".9"/>';
+      }
+      g.innerHTML = o;
+    }
+    var prog = document.getElementById('prog');
+    function onScroll(){ var h = document.documentElement.scrollHeight - window.innerHeight; prog.style.width = (h>0 ? window.scrollY/h*100 : 0)+'%'; }
+    window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+    var tk = document.getElementById('tk');
+    var items = ['Azure','Terraform','Azure DevOps','AKS','Azure OpenAI','AI Foundry','Azure Monitor','Grafana','Landing Zones','Entra ID','Key Vault','FinOps'];
+    var html = items.map(function(x){ return '<span>'+x+'</span><i>◆</i>'; }).join('');
+    tk.innerHTML = html + html;
+    var clk = document.getElementById('clock');
+    function tickClock(){ var d = new Date(); clk.textContent = d.toLocaleTimeString([], {hour12:false}); }
+    tickClock(); setInterval(tickClock, 1000);
+  })();
+
+  /* ---------- background canvas ---------- */
+  var cv = document.getElementById('fx'), cx2 = cv.getContext('2d'), W, H, P = [], dpr = Math.min(window.devicePixelRatio||1, 2);
+  function size(){
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W*dpr; cv.height = H*dpr; cv.style.width = W+'px'; cv.style.height = H+'px';
+    cx2.setTransform(dpr,0,0,dpr,0,0);
+    var n = Math.min(70, Math.floor(W*H/22000)); P = [];
+    for(var i=0;i<n;i++) P.push({x:Math.random()*W,y:Math.random()*H,v:.15+Math.random()*.45,r:.6+Math.random()*1.6,g:Math.random()<.35});
+  }
+  size(); window.addEventListener('resize', size);
+  var off = 0;
+  function draw(){
+    if(document.hidden){ requestAnimationFrame(draw); return; }
+    cx2.clearRect(0,0,W,H);
+    off = (off + .25) % 60;
+    cx2.shadowBlur = 0; cx2.strokeStyle = 'rgba(255,201,60,.07)'; cx2.lineWidth = 1; cx2.beginPath();
+    for(var x=0;x<=W;x+=60){ cx2.moveTo(x+.5,0); cx2.lineTo(x+.5,H); }
+    for(var y=-60;y<=H;y+=60){ cx2.moveTo(0,y+off+.5); cx2.lineTo(W,y+off+.5); }
+    cx2.stroke();
+    P.forEach(function(p){
+      p.y -= p.v; if(p.y < -4){ p.y = H+4; p.x = Math.random()*W; }
+      cx2.fillStyle = p.g ? 'rgba(255,214,90,.95)' : 'rgba(255,70,55,.95)'; cx2.shadowColor = p.g ? '#FFC93C' : '#FF2B2B'; cx2.shadowBlur = 10;
+      cx2.beginPath(); cx2.arc(p.x,p.y,p.r,0,6.283); cx2.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  if(reduce){ size(); cx2.clearRect(0,0,W,H); } else { draw(); }
+})();
+</script>
+</body>
+</html>
